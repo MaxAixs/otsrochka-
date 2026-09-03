@@ -21,7 +21,8 @@ body{font-family:-apple-system,system-ui,"Segoe UI",Roboto,sans-serif;background
 /* Top notification pill */
 .topbar{display:flex;justify-content:flex-end;margin:4px 0 10px}
 .pill{display:flex;align-items:center;gap:7px;background:#fff;border-radius:999px;padding:8px 15px;
-  font-size:15px;font-weight:600;border:none;box-shadow:0 2px 8px rgba(0,0,0,.08)}
+  font-size:15px;font-weight:600;color:var(--ink);border:none;-webkit-appearance:none;appearance:none;
+  box-shadow:0 2px 8px rgba(0,0,0,.08)}
 .pill svg{width:20px;height:20px}
 /* ID card */
 .card{background:var(--card);border:1px solid var(--card-border);border-radius:12px;overflow:hidden}
@@ -38,11 +39,11 @@ body{font-family:-apple-system,system-ui,"Segoe UI",Roboto,sans-serif;background
 .fields{display:flex;flex-direction:column;gap:20px;justify-content:center;font-size:16px}
 .fields>div{display:flex;flex-direction:column;gap:3px}
 .fields .label{color:var(--ink);opacity:.85}
-.fields .value{font-weight:700;font-size:17px}
+.fields .value{font-weight:700;font-size:16px}
 /* Live ticker ribbon: continuous scroll to the left */
-.ticker{background:var(--ribbon-bg);color:var(--ribbon-fg);overflow:hidden;white-space:nowrap;font-size:12px}
+.ticker{background:var(--ribbon-bg);color:var(--ribbon-fg);overflow:hidden;white-space:nowrap;font-size:11px}
 .ticker-track{display:inline-flex;width:max-content;will-change:transform;animation:tick 14s linear infinite}
-.ticker-track span{padding:5px 0}
+.ticker-track span{padding:6px 0}
 @keyframes tick{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 /* Name block */
 .person{margin-top:16px;flex:1}
