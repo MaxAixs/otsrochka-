@@ -1,0 +1,12 @@
+# Xcode
+OtsrochkaPlus.xcodeproj/
+*.xcworkspace/
+xcuserdata/
+DerivedData/
+build/
+
+# macOS
+.DS_Store
+
+# Swift
+.swiftpm/

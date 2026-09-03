@@ -1,0 +1,138 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "document.qr" : {
+      "comment" : "Accessibility label for QR code",
+      "localizations" : {
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "QR-код документа"
+          }
+        }
+      }
+    },
+    "document.qrError" : {
+      "localizations" : {
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Не вдалося згенерувати QR-код"
+          }
+        }
+      }
+    },
+    "document.showQR" : {
+      "localizations" : {
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Показати QR-код"
+          }
+        }
+      }
+    },
+    "document.title" : {
+      "localizations" : {
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Електронний документ"
+          }
+        }
+      }
+    },
+    "document.updated" : {
+      "comment" : "Ribbon with today's date, e.g. Документи оновлено: 3 вересня 2026",
+      "localizations" : {
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Документи оновлено: %@"
+          }
+        }
+      }
+    },
+    "registration.birthDate" : {
+      "localizations" : {
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Дата народження"
+          }
+        }
+      }
+    },
+    "registration.firstName" : {
+      "localizations" : {
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Імʼя"
+          }
+        }
+      }
+    },
+    "registration.lastName" : {
+      "localizations" : {
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Прізвище"
+          }
+        }
+      }
+    },
+    "registration.patronymic" : {
+      "localizations" : {
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "По батькові"
+          }
+        }
+      }
+    },
+    "registration.save" : {
+      "localizations" : {
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Зберегти"
+          }
+        }
+      }
+    },
+    "registration.title" : {
+      "localizations" : {
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Реєстрація"
+          }
+        }
+      }
+    },
+    "start.button" : {
+      "localizations" : {
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Почати"
+          }
+        }
+      }
+    },
+    "start.title" : {
+      "localizations" : {
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Отсрочка+"
+          }
+        }
+      }
+    }
+  },
+  "version" : "1.0"
+}

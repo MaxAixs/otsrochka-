@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
+<title>Реєстрація — Отсрочка+</title>
+<link rel="manifest" href="./manifest.webmanifest" />
+<meta name="theme-color" content="#007aff" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<link rel="apple-touch-icon" href="./icons/apple-touch-icon.png" />
+<style>body{font-family:-apple-system,system-ui,sans-serif;background:#f2f2f7;display:flex;min-height:100vh;align-items:center;justify-content:center;margin:0}
+form{background:#fff;border-radius:20px;padding:32px;width:340px;max-width:calc(100vw - 48px);box-shadow:0 8px 30px rgba(0,0,0,.12);display:flex;flex-direction:column;gap:12px}
+input,button{font-size:16px;padding:12px;border-radius:10px;border:1px solid #ccc}button{background:#007aff;color:#fff;border:none;font-weight:600}
+a{color:#007aff;text-decoration:none;font-size:14px}</style>
+</head>
+<body>
+<form id="form">
+<h2>Реєстрація</h2>
+<input id="lastName" placeholder="Прізвище" required autocomplete="family-name" />
+<input id="firstName" placeholder="Імʼя" required autocomplete="given-name" />
+<input id="patronymic" placeholder="По батькові" required />
+<input id="dob" type="date" required />
+<button type="submit">Зберегти</button>
+<a href="./index.html">← Назад</a>
+</form>
+<script src="./app.js"></script>
+<script>
+  Otsrochka.registerServiceWorker();
+  const existing = Otsrochka.loadPerson();
+  if (existing) {
+    document.getElementById("lastName").value = existing.lastName || "";
+    document.getElementById("firstName").value = existing.firstName || "";
+    document.getElementById("patronymic").value = existing.patronymic || "";
+    document.getElementById("dob").value = existing.dob || "";
+  }
+  document.getElementById("form").addEventListener("submit", (event) => {
+    event.preventDefault();
+    Otsrochka.savePerson({
+      lastName: document.getElementById("lastName").value.trim(),
+      firstName: document.getElementById("firstName").value.trim(),
+      patronymic: document.getElementById("patronymic").value.trim(),
+      dob: document.getElementById("dob").value
+    });
+    location.href = "./document.html";
+  });
+</script>
+</body>
+</html>

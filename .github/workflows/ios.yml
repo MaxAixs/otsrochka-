@@ -1,0 +1,39 @@
+name: iOS CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  build:
+    runs-on: macos-15
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Select Xcode 16
+        run: |
+          ls /Applications | grep -i xcode
+          sudo xcode-select -s /Applications/Xcode_16.4.app/Contents/Developer || sudo xcode-select -s /Applications/Xcode.app/Contents/Developer
+          xcodebuild -version
+
+      - name: Install XcodeGen
+        run: brew install xcodegen || brew upgrade xcodegen
+
+      - name: Generate Xcode project
+        run: xcodegen generate
+
+      - name: Build for Simulator (no signing)
+        run: >
+          xcodebuild build
+          -project OtsrochkaPlus.xcodeproj
+          -scheme OtsrochkaPlus
+          -destination 'platform=iOS Simulator,name=iPhone 16'
+          CODE_SIGNING_ALLOWED=NO
+
+      - name: Run tests (simulator, no signing)
+        run: >
+          xcodebuild test
+          -project OtsrochkaPlus.xcodeproj
+          -scheme OtsrochkaPlus
+          -destination 'platform=iOS Simulator,name=iPhone 16'
+          CODE_SIGNING_ALLOWED=NO

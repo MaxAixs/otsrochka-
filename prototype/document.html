@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
+<title>Документ — Отсрочка+</title>
+<link rel="manifest" href="./manifest.webmanifest" />
+<meta name="theme-color" content="#007aff" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<link rel="apple-touch-icon" href="./icons/apple-touch-icon.png" />
+<style>body{font-family:-apple-system,system-ui,sans-serif;background:#f2f2f7;display:flex;min-height:100vh;align-items:center;justify-content:center;margin:0}
+.card{background:#fff;border-radius:20px;padding:32px;width:360px;max-width:calc(100vw - 48px);text-align:center;box-shadow:0 8px 30px rgba(0,0,0,.12);cursor:pointer}
+#qr{width:220px;height:220px;margin:16px auto;display:none;align-items:center;justify-content:center;border:1px solid #eee}
+#qr img,#qr canvas{width:220px !important;height:220px !important}
+.ribbon{display:inline-block;background:#eef;border-radius:999px;padding:6px 12px;font-size:13px;margin-bottom:12px}
+.links{margin-top:12px;font-size:14px;display:flex;gap:16px;justify-content:center}
+a{color:#007aff;text-decoration:none}button.link{background:none;border:none;color:#ff3b30;font-size:14px;padding:0}</style>
+<script src="./vendor/qrcode.min.js"></script>
+</head>
+<body>
+<div class="card" id="card" title="Торкнись щоб показати QR">
+<div class="ribbon" id="ribbon">Документи оновлено: …</div>
+<h2 id="name">—</h2>
+<p id="dob">—</p>
+<div id="qr"></div>
+<p style="color:#888;font-size:13px" id="hint">Торкнись центру картки → зʼявиться QR</p>
+<div class="links">
+<a href="./registration.html">Змінити дані</a>
+<button class="link" id="wipe" type="button">Видалити дані</button>
+<a href="./index.html">На старт</a>
+</div>
+</div>
+<script src="./app.js"></script>
+<script>
+  Otsrochka.registerServiceWorker();
+  Otsrochka.paintRibbon("ribbon");
+
+  // Backward compatible: accept old ?query links too, then persist them.
+  const query = new URLSearchParams(location.search);
+  let person = Otsrochka.loadPerson();
+  if (!person && query.get("firstName")) {
+    person = {
+      lastName: query.get("lastName") || "",
+      firstName: query.get("firstName") || "",
+      patronymic: query.get("patronymic") || "",
+      dob: query.get("dob") || ""
+    };
+    Otsrochka.savePerson(person);
+  }
+  if (!person) {
+    location.replace("./registration.html");
+  } else {
+    document.getElementById("name").textContent = Otsrochka.fullName(person) || "ПІБ не введено";
+    document.getElementById("dob").textContent = person.dob || "";
+    const payload = JSON.stringify(person);
+    let shown = false;
+    document.getElementById("card").addEventListener("click", (event) => {
+      if (event.target.closest(".links")) {
+        return;
+      }
+      if (shown) {
+        return;
+      }
+      shown = true;
+      const box = document.getElementById("qr");
+      box.style.display = "flex";
+      new QRCode(box, { text: payload, width: 220, height: 220, correctLevel: QRCode.CorrectLevel.M });
+      document.getElementById("hint").textContent = "QR згенеровано локально, офлайн";
+    });
+    document.getElementById("wipe").addEventListener("click", (event) => {
+      event.stopPropagation();
+      Otsrochka.clearPerson();
+      location.href = "./index.html";
+    });
+  }
+</script>
+</body>
+</html>

@@ -1,0 +1,55 @@
+name: OtsrochkaPlus
+options:
+  bundleIdPrefix: com.example
+  deploymentTarget:
+    iOS: "17.0"
+  xcodeVersion: "16.0"
+
+packages:
+  GRDB:
+    url: https://github.com/groue/GRDB.swift
+    from: "6.0.0"
+
+targets:
+  OtsrochkaPlus:
+    type: application
+    platform: iOS
+    sources:
+      - path: OtsrochkaPlus
+    dependencies:
+      - package: GRDB
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.example.otsrochkaplus
+        SWIFT_VERSION: "6.0"
+        SWIFT_STRICT_CONCURRENCY: complete
+        IPHONEOS_DEPLOYMENT_TARGET: "17.0"
+        INFOPLIST_KEY_UILaunchScreen_Generation: YES
+        INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone: UIInterfaceOrientationPortrait
+        INFOPLIST_KEY_LSRequiresIPhoneOS: YES
+        DEVELOPMENT_TEAM: ""
+        CODE_SIGN_STYLE: Automatic
+    info:
+      properties:
+        CFBundleShortVersionString: "0.1.0"
+        CFBundleVersion: "1"
+        UILaunchScreen: {}
+
+  OtsrochkaPlusTests:
+    type: bundle.unit-test
+    platform: iOS
+    sources:
+      - path: OtsrochkaPlusTests
+    dependencies:
+      - target: OtsrochkaPlus
+
+schemes:
+  OtsrochkaPlus:
+    build:
+      targets:
+        OtsrochkaPlus: all
+        OtsrochkaPlusTests: test
+    run:
+      config: Debug
+    test:
+      config: Debug

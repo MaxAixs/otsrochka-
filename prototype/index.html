@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Отсрочка+ — Почати</title>
+<link rel="manifest" href="./manifest.webmanifest" />
+<meta name="theme-color" content="#007aff" />
+<meta name="mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="default" />
+<meta name="apple-mobile-web-app-title" content="Отсрочка+" />
+<link rel="apple-touch-icon" href="./icons/apple-touch-icon.png" />
+<link rel="icon" type="image/png" sizes="192x192" href="./icons/icon-192.png" />
+<style>
+  body { font-family: -apple-system, system-ui, sans-serif; margin: 0; background: #f2f2f7;
+         display: flex; min-height: 100vh; align-items: center; justify-content: center; }
+  .card { background: white; border-radius: 20px; padding: 40px 32px; width: 340px; max-width: calc(100vw - 48px);
+          text-align: center; box-shadow: 0 8px 30px rgba(0,0,0,.12); }
+  .shield { font-size: 64px; }
+  h1 { font-size: 28px; margin: 12px 0 4px; }
+  p { color: #666; font-size: 14px; }
+  a.btn { display: block; margin-top: 28px; background: #007aff; color: white;
+          text-decoration: none; padding: 14px; border-radius: 12px; font-size: 18px; font-weight: 600; }
+  .note { margin-top: 16px; font-size: 12px; color: #999; }
+  .ribbon { display: inline-block; margin-top: 12px; background: #eef; border-radius: 999px;
+            padding: 6px 12px; font-size: 13px; }
+  .install { margin-top: 12px; font-size: 13px; color: #666; background: #f6f6f8; border-radius: 12px; padding: 10px; }
+</style>
+</head>
+<body>
+  <div class="card">
+    <div class="shield">🛡️</div>
+    <h1>Отсрочка+</h1>
+    <p>Навчальний прототип Резерв+ · офлайн · без бекенда</p>
+    <a class="btn" id="startBtn" href="./registration.html">Почати</a>
+    <div><span class="ribbon" id="ribbon">Документи оновлено: …</span></div>
+    <div class="install">На iPhone: Поділитися → Додати на початковий екран. Далі працює офлайн.</div>
+    <div class="note">iOS-екран StartView → кнопка «Почати» → Registration</div>
+  </div>
+<script src="./app.js"></script>
+<script>
+  Otsrochka.registerServiceWorker();
+  Otsrochka.paintRibbon("ribbon");
+  // If data already saved, "Почати" leads straight to the document.
+  if (Otsrochka.loadPerson()) {
+    document.getElementById("startBtn").href = "./document.html";
+  }
+</script>
+</body>
+</html>
