@@ -17,7 +17,7 @@
 *{box-sizing:border-box}
 body{font-family:-apple-system,system-ui,"Segoe UI",Roboto,sans-serif;background:var(--bg);color:var(--ink);
   margin:0;min-height:100vh;display:flex;flex-direction:column;align-items:center}
-.screen{width:100%;max-width:430px;min-height:100vh;display:flex;flex-direction:column;padding:12px 14px calc(70px + env(safe-area-inset-bottom))}
+.screen{width:100%;max-width:430px;min-height:100vh;display:flex;flex-direction:column;padding:12px 14px calc(92px + env(safe-area-inset-bottom))}
 /* Top notification pill */
 .topbar{display:flex;justify-content:flex-end;margin:4px 0 10px}
 .pill{display:flex;align-items:center;gap:7px;background:#fff;border-radius:999px;padding:8px 15px;
@@ -26,7 +26,7 @@ body{font-family:-apple-system,system-ui,"Segoe UI",Roboto,sans-serif;background
 .pill svg{width:20px;height:20px}
 /* ID card */
 .card{background:var(--card);border:1px solid var(--card-border);border-radius:12px;overflow:hidden;
-  margin-top:6vh;margin-bottom:auto}
+  margin-top:6vh;margin-bottom:auto;min-height:56vh}
 .card-head{display:flex;align-items:center;justify-content:space-between;padding:18px 18px 2px}
 .card-title{font-size:19px;font-weight:500}
 .emblem{width:26px;height:31px}
@@ -63,12 +63,12 @@ body{font-family:-apple-system,system-ui,"Segoe UI",Roboto,sans-serif;background
 .sheet .close{margin-top:8px;background:var(--ink);color:#fff;border:none;border-radius:12px;
   padding:12px 20px;font-size:16px;font-weight:600;width:100%}
 /* Bottom tab bar: floating white pill (4 tabs) */
-.tabbar{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(6px + env(safe-area-inset-bottom));
-  width:min(280px,calc(100vw - 80px));background:var(--nav);border-radius:20px;z-index:30;
-  display:flex;padding:5px 6px;box-shadow:0 8px 28px rgba(0,0,0,.20)}
-.tab{flex:1;border:none;background:none;border-radius:13px;padding:3px 2px;display:flex;flex-direction:column;
-  align-items:center;gap:1px;font-size:10px;font-weight:600;color:var(--ink);cursor:pointer}
-.tab svg{width:18px;height:18px}
+.tabbar{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(10px + env(safe-area-inset-bottom));
+  width:min(340px,calc(100vw - 50px));background:var(--nav);border-radius:26px;z-index:30;
+  display:flex;padding:8px 10px;box-shadow:0 8px 28px rgba(0,0,0,.20)}
+.tab{flex:1;border:none;background:none;border-radius:18px;padding:5px 2px;display:flex;flex-direction:column;
+  align-items:center;gap:2px;font-size:13px;font-weight:600;color:var(--ink);cursor:pointer}
+.tab svg{width:24px;height:24px}
 .tab.active{background:var(--nav-active)}
 /* Menu sheet + toast */
 .menu{position:fixed;inset:0;background:rgba(0,0,0,.4);display:none;align-items:flex-end;justify-content:center;z-index:40}
@@ -78,7 +78,7 @@ body{font-family:-apple-system,system-ui,"Segoe UI",Roboto,sans-serif;background
   padding:14px 8px;border-bottom:1px solid #eee;color:var(--ink)}
 .menu-box button:last-child{border-bottom:none}
 .menu-box button.danger{color:#E0392B}
-.toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(86px + env(safe-area-inset-bottom));
+.toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(108px + env(safe-area-inset-bottom));
   background:var(--ink);color:#fff;border-radius:12px;padding:10px 16px;font-size:14px;display:none;z-index:50}
 .toast.show{display:block}
 </style>
