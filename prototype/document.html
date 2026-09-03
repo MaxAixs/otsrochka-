@@ -45,13 +45,12 @@ body{font-family:-apple-system,system-ui,"Segoe UI",Roboto,sans-serif;background
 .ticker-track span{padding:5px 0}
 @keyframes tick{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 /* Name block */
-.person{margin-top:14px}
+.person{margin-top:14px;flex:1}
 .person .status{font-size:17px;color:var(--muted);margin:0 4px 8px}
 .person-row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:0 4px}
 .person-name{font-size:29px;line-height:1.22;font-weight:800;text-transform:uppercase;margin:0}
 .plus{flex:none;width:46px;height:46px;border-radius:50%;background:var(--accent);border:none;
   font-size:30px;line-height:1;color:#191914;cursor:pointer}
-.hint{font-size:13px;color:var(--muted);margin:10px 4px 0}
 /* QR overlay */
 .overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);display:none;align-items:center;justify-content:center;padding:24px;z-index:40}
 .overlay.open{display:flex}
@@ -123,7 +122,6 @@ body{font-family:-apple-system,system-ui,"Segoe UI",Roboto,sans-serif;background
       <h2 class="person-name" id="personName">—</h2>
       <button class="plus" id="qrBtn" type="button" aria-label="Показати QR-код">+</button>
     </div>
-    <p class="hint">Торкнись ＋ щоб показати QR-код. Торкнись фото щоб додати його (зберігається тільки на цьому пристрої).</p>
   </section>
 </div>
 
