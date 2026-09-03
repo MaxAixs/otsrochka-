@@ -12,7 +12,7 @@
   --bg:#DCD8CA; --card:#E7E4D6; --card-border:#CBC6B1;
   --ink:#191914; --muted:#6F6E5E;
   --ribbon-bg:#4A3A1E; --ribbon-fg:#EEDCAB;
-  --accent:#F2A93B; --nav:#FFFFFF; --nav-active:#EFEFEC;
+  --accent:#F5820B; --nav:#FFFFFF; --nav-active:#EFEFEC;
 }
 *{box-sizing:border-box}
 body{font-family:-apple-system,system-ui,"Segoe UI",Roboto,sans-serif;background:var(--bg);color:var(--ink);
@@ -47,7 +47,7 @@ body{font-family:-apple-system,system-ui,"Segoe UI",Roboto,sans-serif;background
 @keyframes tick{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 /* Name block */
 .person{padding:14px 18px 18px}
-.person .status{font-size:17px;color:var(--muted);margin:0 0 10px}
+.person .status{font-size:15px;color:var(--muted);margin:0 0 10px}
 .person-row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:0}
 .person-name{font-size:29px;line-height:1.22;font-weight:800;text-transform:uppercase;margin:0}
 .plus{flex:none;width:46px;height:46px;border-radius:50%;background:var(--accent);border:none;
@@ -186,7 +186,7 @@ body{font-family:-apple-system,system-ui,"Segoe UI",Roboto,sans-serif;background
   } else {
     document.getElementById("personName").textContent = Otsrochka.fullName(person) || "ПІБ не введено";
     document.getElementById("dobValue").textContent = Otsrochka.formatDateUA(person.dob);
-    document.getElementById("defValue").textContent = "до кінця мобілізації";
+    document.getElementById("defValue").textContent = "31.09.2026";
 
     // Live ticker: two identical halves scrolling left in a seamless loop.
     const chunk = Otsrochka.tickerText(new Date()).repeat(3);
