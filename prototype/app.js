@@ -44,5 +44,27 @@
     }
   }
 
-  global.Otsrochka = { savePerson, loadPerson, clearPerson, fullName, registerServiceWorker, paintRibbon };
+  function formatDateUA(isoDate) {
+    if (!isoDate) {
+      return "—";
+    }
+    const parsed = new Date(isoDate + "T00:00:00");
+    if (Number.isNaN(parsed.getTime())) {
+      return "—";
+    }
+    return parsed.toLocaleDateString("uk-UA", { day: "2-digit", month: "2-digit", year: "numeric" });
+  }
+
+  function formatTimeUA(date) {
+    return date.toLocaleTimeString("uk-UA", { hour: "2-digit", minute: "2-digit" });
+  }
+
+  /// Builds the live ticker text: "Документ оновлено о HH:MM | DD.MM.YYYY • ".
+  function tickerText(now) {
+    return `Документ оновлено о ${formatTimeUA(now)} | ${formatDateUA(
+      now.getFullYear() + "-" + String(now.getMonth() + 1).padStart(2, "0") + "-" + String(now.getDate()).padStart(2, "0")
+    )} • `;
+  }
+
+  global.Otsrochka = { savePerson, loadPerson, clearPerson, fullName, registerServiceWorker, paintRibbon, formatDateUA, formatTimeUA, tickerText };
 })(window);
