@@ -46,9 +46,9 @@ body{font-family:-apple-system,system-ui,"Segoe UI",Roboto,sans-serif;background
 .ticker-track span{padding:6px 0}
 @keyframes tick{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 /* Name block */
-.person{margin-top:16px;flex:1}
-.person .status{font-size:17px;color:var(--muted);margin:0 8px 10px}
-.person-row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:0 8px}
+.person{padding:14px 18px 18px}
+.person .status{font-size:17px;color:var(--muted);margin:0 0 10px}
+.person-row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:0}
 .person-name{font-size:29px;line-height:1.22;font-weight:800;text-transform:uppercase;margin:0}
 .plus{flex:none;width:46px;height:46px;border-radius:50%;background:var(--accent);border:none;
   font-size:30px;line-height:1;color:#191914;cursor:pointer}
@@ -119,14 +119,14 @@ body{font-family:-apple-system,system-ui,"Segoe UI",Roboto,sans-serif;background
       </div>
     </div>
     <div class="ticker" aria-label="Документи оновлено"><span class="ticker-track" id="tickerTrack"></span></div>
-  </section>
 
-  <section class="person">
-    <p class="status">Військовозобовʼязаний</p>
-    <div class="person-row">
-      <h2 class="person-name" id="personName">—</h2>
-      <button class="plus" id="qrBtn" type="button" aria-label="Показати QR-код">+</button>
-    </div>
+    <section class="person">
+      <p class="status">Військовозобовʼязаний</p>
+      <div class="person-row">
+        <h2 class="person-name" id="personName">—</h2>
+        <button class="plus" id="qrBtn" type="button" aria-label="Показати QR-код">+</button>
+      </div>
+  </section>
   </section>
 </div>
 
