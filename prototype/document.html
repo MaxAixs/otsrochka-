@@ -28,14 +28,15 @@ body{font-family:-apple-system,system-ui,"Segoe UI",Roboto,sans-serif;background
 .card-head{display:flex;align-items:center;justify-content:space-between;padding:14px 18px 2px}
 .card-title{font-size:19px;font-weight:500}
 .emblem{width:26px;height:34px}
-.card-body{display:flex;gap:16px;padding:10px 18px 14px}
+.card-body{display:flex;gap:16px;padding:10px 18px 16px}
 .photo{position:relative;width:148px;height:186px;flex:none;border-radius:8px;overflow:hidden;background:#C6C2B0;cursor:pointer}
 .photo img{width:100%;height:100%;object-fit:cover;display:block}
 .photo .placeholder{width:100%;height:100%;display:flex;align-items:center;justify-content:center}
 .photo .placeholder svg{width:72px;height:72px;opacity:.5}
 .photo .badge{position:absolute;right:6px;bottom:6px;width:28px;height:28px;border-radius:50%;
   background:rgba(0,0,0,.55);color:#fff;font-size:15px;display:flex;align-items:center;justify-content:center}
-.fields{display:flex;flex-direction:column;gap:12px;justify-content:center;font-size:16px}
+.fields{display:flex;flex-direction:column;gap:20px;justify-content:center;font-size:16px}
+.fields>div{display:flex;flex-direction:column;gap:3px}
 .fields .label{color:var(--ink);opacity:.85}
 .fields .value{font-weight:700;font-size:17px}
 /* Live ticker ribbon: continuous scroll to the left */
