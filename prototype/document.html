@@ -17,7 +17,7 @@
 *{box-sizing:border-box}
 body{font-family:-apple-system,system-ui,"Segoe UI",Roboto,sans-serif;background:var(--bg);color:var(--ink);
   margin:0;min-height:100vh;display:flex;flex-direction:column;align-items:center}
-.screen{width:100%;max-width:430px;min-height:100vh;display:flex;flex-direction:column;padding:12px 12px calc(78px + env(safe-area-inset-bottom))}
+.screen{width:100%;max-width:430px;min-height:100vh;display:flex;flex-direction:column;padding:12px 12px calc(124px + env(safe-area-inset-bottom))}
 /* Top notification pill */
 .topbar{display:flex;justify-content:flex-end;margin:4px 0 10px}
 .pill{display:flex;align-items:center;gap:7px;background:#fff;border-radius:999px;padding:8px 15px;
@@ -59,13 +59,13 @@ body{font-family:-apple-system,system-ui,"Segoe UI",Roboto,sans-serif;background
 #qr img,#qr canvas{width:220px !important;height:220px !important}
 .sheet .close{margin-top:8px;background:var(--ink);color:#fff;border:none;border-radius:12px;
   padding:12px 20px;font-size:16px;font-weight:600;width:100%}
-/* Bottom tab bar (attached, like the reference) */
-.tabbar{position:fixed;left:50%;transform:translateX(-50%);bottom:0;
-  width:min(430px,100%);background:var(--nav);border-radius:14px 14px 0 0;z-index:30;
-  display:flex;padding:5px 6px calc(6px + env(safe-area-inset-bottom));border-top:1px solid #E3E3E0}
-.tab{flex:1;border:none;background:none;border-radius:10px;padding:4px 2px 3px;display:flex;flex-direction:column;
-  align-items:center;gap:1px;font-size:10.5px;font-weight:600;color:var(--ink);cursor:pointer}
-.tab svg{width:20px;height:20px}
+/* Bottom tab bar: floating white pill (4 tabs) */
+.tabbar{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(12px + env(safe-area-inset-bottom));
+  width:min(390px,calc(100vw - 32px));background:var(--nav);border-radius:34px;z-index:30;
+  display:flex;padding:10px 12px;box-shadow:0 8px 28px rgba(0,0,0,.20)}
+.tab{flex:1;border:none;background:none;border-radius:24px;padding:8px 2px;display:flex;flex-direction:column;
+  align-items:center;gap:4px;font-size:15px;font-weight:600;color:var(--ink);cursor:pointer}
+.tab svg{width:30px;height:30px}
 .tab.active{background:var(--nav-active)}
 /* Menu sheet + toast */
 .menu{position:fixed;inset:0;background:rgba(0,0,0,.4);display:none;align-items:flex-end;justify-content:center;z-index:40}
@@ -75,7 +75,7 @@ body{font-family:-apple-system,system-ui,"Segoe UI",Roboto,sans-serif;background
   padding:14px 8px;border-bottom:1px solid #eee;color:var(--ink)}
 .menu-box button:last-child{border-bottom:none}
 .menu-box button.danger{color:#E0392B}
-.toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(100px + env(safe-area-inset-bottom));
+.toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(140px + env(safe-area-inset-bottom));
   background:var(--ink);color:#fff;border-radius:12px;padding:10px 16px;font-size:14px;display:none;z-index:50}
 .toast.show{display:block}
 </style>
@@ -146,6 +146,9 @@ body{font-family:-apple-system,system-ui,"Segoe UI",Roboto,sans-serif;background
   <button class="tab active" type="button" data-tab="id">
     <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6 2h12a1 1 0 0 1 1 1v18a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V3a1 1 0 0 1 1-1Zm2 6v2h8V8H8Zm0 4v2h8v-2H8Z"/></svg>
     Резерв ID</button>
+  <button class="tab" type="button" data-tab="services">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>
+    Сервіси</button>
   <button class="tab" type="button" data-tab="jobs">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M12 8l3.5 3.5L12 15l-3.5-3.5L12 8Z" fill="currentColor" stroke="none"/></svg>
     Вакансії</button>
@@ -177,7 +180,7 @@ body{font-family:-apple-system,system-ui,"Segoe UI",Roboto,sans-serif;background
   } else {
     document.getElementById("personName").textContent = Otsrochka.fullName(person) || "ПІБ не введено";
     document.getElementById("dobValue").textContent = Otsrochka.formatDateUA(person.dob);
-    document.getElementById("defValue").textContent = Otsrochka.formatDateUA(person.defermentUntil);
+    document.getElementById("defValue").textContent = "до кінця мобілізації";
 
     // Live ticker: two identical halves scrolling left in a seamless loop.
     const chunk = Otsrochka.tickerText(new Date()).repeat(3);
