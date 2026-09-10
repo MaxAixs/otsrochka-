@@ -28,6 +28,20 @@
       .join(" ");
   }
 
+  function capFirst(word) {
+    if (!word) {
+      return "";
+    }
+    return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
+  }
+
+  /// Display name: SURNAME uppercased, first and patronymic capitalized.
+  function displayName(person) {
+    return [(person.lastName || "").toUpperCase(), capFirst(person.firstName), capFirst(person.patronymic)]
+      .filter(Boolean)
+      .join(" ");
+  }
+
   function registerServiceWorker() {
     if ("serviceWorker" in navigator) {
       navigator.serviceWorker.register("./sw.js").catch((error) => {
@@ -66,5 +80,5 @@
     )} • `;
   }
 
-  global.Otsrochka = { savePerson, loadPerson, clearPerson, fullName, registerServiceWorker, paintRibbon, formatDateUA, formatTimeUA, tickerText };
+  global.Otsrochka = { savePerson, loadPerson, clearPerson, fullName, displayName, registerServiceWorker, paintRibbon, formatDateUA, formatTimeUA, tickerText };
 })(window);
