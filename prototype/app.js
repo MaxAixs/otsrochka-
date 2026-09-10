@@ -35,11 +35,10 @@
     return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
   }
 
-  /// Display name: SURNAME uppercased, first and patronymic capitalized.
-  function displayName(person) {
+  /// Display name lines: [SURNAME, First, Patronymic], each on its own line.
+  function displayNameLines(person) {
     return [(person.lastName || "").toUpperCase(), capFirst(person.firstName), capFirst(person.patronymic)]
-      .filter(Boolean)
-      .join(" ");
+      .filter(Boolean);
   }
 
   function registerServiceWorker() {
@@ -80,5 +79,5 @@
     )} • `;
   }
 
-  global.Otsrochka = { savePerson, loadPerson, clearPerson, fullName, displayName, registerServiceWorker, paintRibbon, formatDateUA, formatTimeUA, tickerText };
+  global.Otsrochka = { savePerson, loadPerson, clearPerson, fullName, displayNameLines, registerServiceWorker, paintRibbon, formatDateUA, formatTimeUA, tickerText };
 })(window);

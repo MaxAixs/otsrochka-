@@ -186,7 +186,19 @@ body{font-family:-apple-system,system-ui,"Segoe UI",Roboto,sans-serif;background
   if (!person) {
     location.replace("./registration.html");
   } else {
-    document.getElementById("personName").textContent = Otsrochka.displayName(person) || "ПІБ не введено";
+    const nameEl = document.getElementById("personName");
+    const nameLines = Otsrochka.displayNameLines(person);
+    nameEl.textContent = "";
+    if (nameLines.length === 0) {
+      nameEl.textContent = "ПІБ не введено";
+    } else {
+      nameLines.forEach((line, index) => {
+        if (index > 0) {
+          nameEl.appendChild(document.createElement("br"));
+        }
+        nameEl.appendChild(document.createTextNode(line));
+      });
+    }
     document.getElementById("dobValue").textContent = Otsrochka.formatDateUA(person.dob);
     document.getElementById("defValue").textContent = "31.09.2026";
 
