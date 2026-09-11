@@ -53,7 +53,8 @@ body{font-family:-apple-system,system-ui,"Segoe UI",Roboto,sans-serif;background
 .person-row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:0}
 .person-name{font-size:27px;line-height:1.3;font-weight:600;margin:0}
 .plus{flex:none;width:40px;height:40px;border-radius:50%;background:var(--accent);border:none;
-  font-size:26px;font-weight:600;line-height:1;color:#191914;cursor:pointer;transform:translateY(26px)}
+  display:flex;align-items:center;justify-content:center;cursor:pointer;transform:translateY(26px);padding:0}
+.plus svg{width:22px;height:22px}
 /* QR overlay */
 .overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);display:none;align-items:center;justify-content:center;padding:24px;z-index:40}
 .overlay.open{display:flex}
@@ -126,7 +127,7 @@ body{font-family:-apple-system,system-ui,"Segoe UI",Roboto,sans-serif;background
       <p class="status">Військовозобовʼязаний</p>
       <div class="person-row">
         <h2 class="person-name" id="personName">—</h2>
-        <button class="plus" id="qrBtn" type="button" aria-label="Показати QR-код">+</button>
+        <button class="plus" id="qrBtn" type="button" aria-label="Показати QR-код"><svg viewBox="0 0 24 24" fill="none" stroke="#1A1A1A" stroke-width="3.4" stroke-linecap="round" aria-hidden="true"><path d="M12 4v16M4 12h16"/></svg></button>
       </div>
   </section>
   </section>
