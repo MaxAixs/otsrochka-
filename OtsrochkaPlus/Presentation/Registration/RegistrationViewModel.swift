@@ -9,6 +9,7 @@ public final class RegistrationViewModel {
   public var lastName = ""
   public var patronymic = ""
   public var dateOfBirth = Date.now
+  public var defermentUntil: Date = Calendar.current.date(byAdding: .year, value: 1, to: .now) ?? Date.now
   public var errorMessage: String?
 
   private let saveUseCase: any SavePersonUseCaseProtocol
@@ -24,7 +25,8 @@ public final class RegistrationViewModel {
       firstName: firstName,
       lastName: lastName,
       patronymic: patronymic,
-      dateOfBirth: dateOfBirth
+      dateOfBirth: dateOfBirth,
+      defermentUntil: defermentUntil
     )
     do {
       try await saveUseCase.execute(person)

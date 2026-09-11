@@ -19,6 +19,8 @@ a{color:#007aff;text-decoration:none;font-size:14px}</style>
 <input id="firstName" placeholder="Імʼя" required autocomplete="given-name" />
 <input id="patronymic" placeholder="По батькові" required />
 <input id="dob" type="date" required />
+<label for="def" style="font-size:14px;color:#555">Відстрочка до</label>
+<input id="def" type="date" required />
 <button type="submit">Зберегти</button>
 <a href="./index.html">← Назад</a>
 </form>
@@ -31,6 +33,7 @@ a{color:#007aff;text-decoration:none;font-size:14px}</style>
     document.getElementById("firstName").value = existing.firstName || "";
     document.getElementById("patronymic").value = existing.patronymic || "";
     document.getElementById("dob").value = existing.dob || "";
+    document.getElementById("def").value = existing.defermentUntil || "";
   }
   document.getElementById("form").addEventListener("submit", (event) => {
     event.preventDefault();
@@ -40,7 +43,7 @@ a{color:#007aff;text-decoration:none;font-size:14px}</style>
       firstName: document.getElementById("firstName").value.trim(),
       patronymic: document.getElementById("patronymic").value.trim(),
       dob: document.getElementById("dob").value,
-      defermentUntil: "",
+      defermentUntil: document.getElementById("def").value,
       photo: previous.photo || null
     });
     location.href = "./document.html";

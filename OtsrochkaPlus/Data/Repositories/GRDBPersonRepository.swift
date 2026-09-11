@@ -15,20 +15,22 @@ struct GRDBPersonRepository: PersonRepository {
 
   func save(_ person: Person) async throws {
     try await manager.queue.write { db in
+      let formatter = ISO8601DateFormatter()
       try db.execute(
         sql: """
           INSERT OR REPLACE INTO person
-            (id, firstName, lastName, patronymic, dateOfBirth, createdAt, updatedAt)
-          VALUES (?, ?, ?, ?, ?, ?, ?)
+            (id, firstName, lastName, patronymic, dateOfBirth, defermentUntil, createdAt, updatedAt)
+          VALUES (?, ?, ?, ?, ?, ?, ?, ?)
           """,
         arguments: [
           person.id,
           person.firstName,
           person.lastName,
           person.patronymic,
-          ISO8601DateFormatter().string(from: person.dateOfBirth),
-          ISO8601DateFormatter().string(from: person.createdAt),
-          ISO8601DateFormatter().string(from: person.updatedAt)
+          formatter.string(from: person.dateOfBirth),
+          person.defermentUntil.map { formatter.string(from: $0) },
+          formatter.string(from: person.createdAt),
+          formatter.string(from: person.updatedAt)
         ]
       )
     }
@@ -62,12 +64,15 @@ struct GRDBPersonRepository: PersonRepository {
     guard let dob = formatter.date(from: dobString) else {
       return nil
     }
+    let defermentString: String? = row["defermentUntil"]
+    let defermentUntil = defermentString.flatMap { formatter.date(from: $0) }
     return Person(
       id: row["id"],
       firstName: firstName,
       lastName: lastName,
       patronymic: patronymic,
-      dateOfBirth: dob
+      dateOfBirth: dob,
+      defermentUntil: defermentUntil
     )
   }
 }

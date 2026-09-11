@@ -14,6 +14,12 @@ struct RegistrationView: View {
         selection: $viewModel.dateOfBirth,
         displayedComponents: .date
       )
+      DatePicker(
+        String(localized: "registration.defermentUntil", bundle: .main),
+        selection: $viewModel.defermentUntil,
+        in: Date.now...,
+        displayedComponents: .date
+      )
       Button(String(localized: "registration.save", bundle: .main)) {
         Task { await viewModel.save() }
       }

@@ -1,6 +1,39 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
+    "document.birthDate" : {
+      "comment" : "Birth date row on document, e.g. Дата народження: 14 травня 1990",
+      "localizations" : {
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Дата народження: %@"
+          }
+        }
+      }
+    },
+    "document.defermentUntil" : {
+      "comment" : "Deferment date row on document, e.g. Відстрочка до: 31 грудня 2026",
+      "localizations" : {
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Відстрочка до: %@"
+          }
+        }
+      }
+    },
+    "document.noDeferment" : {
+      "comment" : "Placeholder when deferment date is missing",
+      "localizations" : {
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "—"
+          }
+        }
+      }
+    },
     "document.qr" : {
       "comment" : "Accessibility label for QR code",
       "localizations" : {
@@ -59,6 +92,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Дата народження"
+          }
+        }
+      }
+    },
+    "registration.defermentUntil" : {
+      "localizations" : {
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Відстрочка до"
           }
         }
       }

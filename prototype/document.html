@@ -207,7 +207,7 @@ body{font-family:-apple-system,system-ui,"Segoe UI",Roboto,sans-serif;background
       });
     }
     document.getElementById("dobValue").textContent = Otsrochka.formatDateUA(person.dob);
-    document.getElementById("defValue").textContent = "31.09.2026";
+    document.getElementById("defValue").textContent = Otsrochka.formatDateUA(person.defermentUntil);
 
     // Live ticker: two identical halves scrolling left in a seamless loop.
     const chunk = Otsrochka.tickerText(new Date()).repeat(3);

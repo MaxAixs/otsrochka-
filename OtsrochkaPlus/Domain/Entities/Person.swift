@@ -8,6 +8,7 @@ public struct Person: Equatable, Sendable, Codable {
   public var lastName: String
   public var patronymic: String
   public var dateOfBirth: Date
+  public var defermentUntil: Date?
   public var createdAt: Date
   public var updatedAt: Date
 
@@ -17,6 +18,7 @@ public struct Person: Equatable, Sendable, Codable {
     lastName: String,
     patronymic: String,
     dateOfBirth: Date,
+    defermentUntil: Date? = nil,
     createdAt: Date = Date.now,
     updatedAt: Date = Date.now
   ) {
@@ -25,6 +27,7 @@ public struct Person: Equatable, Sendable, Codable {
     self.lastName = lastName
     self.patronymic = patronymic
     self.dateOfBirth = dateOfBirth
+    self.defermentUntil = defermentUntil
     self.createdAt = createdAt
     self.updatedAt = updatedAt
   }
@@ -38,12 +41,15 @@ public struct Person: Equatable, Sendable, Codable {
   public func qrPayload() throws -> Data {
     let formatter = ISO8601DateFormatter()
     formatter.formatOptions = [.withFullDate]
-    let payload: [String: String] = [
+    var payload: [String: String] = [
       "lastName": lastName,
       "firstName": firstName,
       "patronymic": patronymic,
       "dateOfBirth": formatter.string(from: dateOfBirth)
     ]
+    if let defermentUntil {
+      payload["defermentUntil"] = formatter.string(from: defermentUntil)
+    }
     return try JSONSerialization.data(withJSONObject: payload, options: [.sortedKeys])
   }
 }

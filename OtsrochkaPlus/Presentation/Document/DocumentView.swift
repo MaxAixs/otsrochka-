@@ -10,6 +10,21 @@ struct DocumentView: View {
       if let person = viewModel.person {
         Text(person.fullName)
           .font(.headline)
+        Text(
+          String(
+            format: String(localized: "document.birthDate", bundle: .main),
+            person.dateOfBirth.formatted(date: .long, time: .omitted)
+          )
+        )
+        .font(.subheadline)
+        Text(
+          String(
+            format: String(localized: "document.defermentUntil", bundle: .main),
+            person.defermentUntil?.formatted(date: .long, time: .omitted)
+              ?? String(localized: "document.noDeferment", bundle: .main)
+          )
+        )
+        .font(.subheadline)
         if viewModel.isQRVisible {
           QRCodeView(data: (try? person.qrPayload()) ?? Data())
         } else {

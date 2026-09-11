@@ -15,6 +15,11 @@ enum Migrations {
         table.column("updatedAt", .text).notNull()
       }
     }
+    migrator.registerMigration("v2_add_deferment_until") { db in
+      try db.alter(table: "person") { table in
+        table.add(column: "defermentUntil", .text)
+      }
+    }
   }
 }
 #endif
