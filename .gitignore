@@ -10,3 +10,6 @@ build/
 
 # Swift
 .swiftpm/
+
+# Local screenshots (kept on disk, not tracked)
+docs/images/
