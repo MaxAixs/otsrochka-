@@ -55,14 +55,18 @@ body{font-family:-apple-system,system-ui,"Segoe UI",Roboto,sans-serif;background
 .plus{flex:none;width:40px;height:40px;border-radius:50%;background:var(--accent);border:none;
   display:flex;align-items:center;justify-content:center;cursor:pointer;transform:translateY(26px);padding:0}
 .plus svg{width:22px;height:22px}
-/* QR overlay */
-.overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);display:none;align-items:center;justify-content:center;padding:24px;z-index:40}
-.overlay.open{display:flex}
-.sheet{background:#fff;border-radius:20px;padding:24px;width:100%;max-width:340px;text-align:center}
-#qr{display:flex;justify-content:center;margin:12px 0}
-#qr img,#qr canvas{width:220px !important;height:220px !important}
-.sheet .close{margin-top:8px;background:var(--ink);color:#fff;border:none;border-radius:12px;
-  padding:12px 20px;font-size:16px;font-weight:600;width:100%}
+/* Slider: doc card <-> QR screen */
+.stage{overflow:hidden}
+.track{display:flex;transition:transform .38s ease}
+.track.qr{transform:translateX(-100%)}
+.pane{flex:0 0 100%;min-width:0}
+/* QR screen */
+.qr-card{background:#fff;border-radius:12px;margin:6vh 20px auto;min-height:60vh;display:flex;
+  flex-direction:column;align-items:center;padding:28px 20px;cursor:pointer}
+.qr-title{font-size:15px;font-weight:600;text-align:center;margin:24px 0 4px}
+#qrFull{display:flex;justify-content:center;margin:12px 0;width:100%}
+#qrFull img,#qrFull canvas{width:min(100%,280px) !important;height:auto !important}
+.qr-hint{font-size:13px;color:var(--muted);margin:8px 0 0}
 /* Bottom tab bar: floating white pill (4 tabs) */
 .tabbar{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(10px + env(safe-area-inset-bottom));
   width:min(340px,calc(100vw - 50px));background:var(--nav);border-radius:26px;z-index:30;
@@ -93,7 +97,10 @@ body{font-family:-apple-system,system-ui,"Segoe UI",Roboto,sans-serif;background
     </button>
   </div>
 
-  <section class="card" aria-label="Резерв ID">
+  <div class="stage">
+  <div class="track" id="track">
+  <div class="pane">
+  <section class="card" id="docCard" aria-label="Резерв ID">
     <div class="card-head">
       <span class="card-title">Резерв ID</span>
       <svg class="emblem" viewBox="0 0 100 117" aria-hidden="true">
@@ -131,15 +138,15 @@ body{font-family:-apple-system,system-ui,"Segoe UI",Roboto,sans-serif;background
       </div>
   </section>
   </section>
-</div>
-
-<div class="overlay" id="qrOverlay">
-  <div class="sheet" role="dialog" aria-label="QR-код документа">
-    <h3 style="margin:0">QR-код документа</h3>
-    <p id="qrName" style="color:var(--muted);margin:6px 0 0"></p>
-    <div id="qr"></div>
-    <p style="font-size:13px;color:var(--muted)">Згенеровано локально, офлайн</p>
-    <button class="close" id="qrClose" type="button">Закрити</button>
+  </div>
+  <div class="pane">
+    <section class="qr-card" id="qrPane" aria-label="QR-код документа">
+      <p class="qr-title" id="qrValidTitle">QR-код дійсний до —</p>
+      <div id="qrFull"></div>
+      <p class="qr-hint">Торкнись, щоб повернутися</p>
+    </section>
+  </div>
+  </div>
   </div>
 </div>
 
@@ -252,29 +259,61 @@ body{font-family:-apple-system,system-ui,"Segoe UI",Roboto,sans-serif;background
       img.src = URL.createObjectURL(file);
     });
 
-    // QR overlay on + tap.
-    const overlay = document.getElementById("qrOverlay");
+    // QR screen: tap center (or +) slides right to the QR page, tap it to go back.
+    const slideTrack = document.getElementById("track");
+    const stage = slideTrack.parentElement;
     let qrBuilt = false;
-    document.getElementById("qrBtn").addEventListener("click", () => {
-      document.getElementById("qrName").textContent = Otsrochka.fullName(person);
-      if (!qrBuilt) {
-        qrBuilt = true;
-        const payload = JSON.stringify({
-          lastName: person.lastName,
-          firstName: person.firstName,
-          patronymic: person.patronymic,
-          dateOfBirth: person.dob
-        });
-        new QRCode(document.getElementById("qr"), { text: payload, width: 220, height: 220, correctLevel: QRCode.CorrectLevel.M });
+    function buildQR() {
+      if (qrBuilt) {
+        return;
       }
-      overlay.classList.add("open");
+      qrBuilt = true;
+      const payload = JSON.stringify({
+        lastName: person.lastName,
+        firstName: person.firstName,
+        patronymic: person.patronymic,
+        dateOfBirth: person.dob
+      });
+      new QRCode(document.getElementById("qrFull"), { text: payload, width: 280, height: 280, correctLevel: QRCode.CorrectLevel.M });
+      const valid = new Date();
+      valid.setFullYear(valid.getFullYear() + 1);
+      document.getElementById("qrValidTitle").textContent =
+        `QR-код дійсний до ${valid.toLocaleDateString("uk-UA", { day: "numeric", month: "long", year: "numeric" })}`;
+    }
+    function showQR() {
+      buildQR();
+      slideTrack.classList.add("qr");
+    }
+    function showDoc() {
+      slideTrack.classList.remove("qr");
+    }
+    document.getElementById("qrBtn").addEventListener("click", (event) => {
+      event.stopPropagation();
+      showQR();
     });
-    document.getElementById("qrClose").addEventListener("click", () => overlay.classList.remove("open"));
-    overlay.addEventListener("click", (event) => {
-      if (event.target === overlay) {
-        overlay.classList.remove("open");
+    document.getElementById("docCard").addEventListener("click", (event) => {
+      if (event.target.closest("#photoBox") || event.target.closest("#qrBtn") || event.target.closest("input")) {
+        return;
       }
+      showQR();
     });
+    document.getElementById("qrPane").addEventListener("click", showDoc);
+    let touchX = null;
+    stage.addEventListener("touchstart", (event) => {
+      touchX = event.touches[0].clientX;
+    }, { passive: true });
+    stage.addEventListener("touchend", (event) => {
+      if (touchX === null) {
+        return;
+      }
+      const dx = event.changedTouches[0].clientX - touchX;
+      touchX = null;
+      if (dx < -50) {
+        showQR();
+      } else if (dx > 50) {
+        showDoc();
+      }
+    }, { passive: true });
 
     // Tabs.
     const menuSheet = document.getElementById("menuSheet");
