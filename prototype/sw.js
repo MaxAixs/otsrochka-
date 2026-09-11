@@ -1,5 +1,5 @@
 /* Otsrochka+ PWA service worker: offline-first app shell. */
-const CACHE = "otsrochka-v34";
+const CACHE = "otsrochka-v35";
 const ASSETS = [
   "./",
   "./index.html",
@@ -8,6 +8,7 @@ const ASSETS = [
   "./app.js",
   "./manifest.webmanifest",
   "./vendor/qrcode.min.js",
+  "./qr-fallback.png",
   "./icons/icon-192.png",
   "./icons/icon-512.png",
   "./icons/apple-touch-icon.png"
