@@ -62,10 +62,10 @@ body{font-family:-apple-system,system-ui,"Segoe UI",Roboto,sans-serif;background
 .pane{flex:0 0 100%;min-width:0}
 /* QR screen */
 .qr-card{background:#fff;border-radius:12px;margin:6vh 20px auto;min-height:60vh;display:flex;
-  flex-direction:column;align-items:center;padding:28px 20px;cursor:pointer}
+  flex-direction:column;align-items:center;justify-content:center;padding:28px 20px;cursor:pointer}
 .qr-title{font-size:15px;font-weight:600;text-align:center;margin:24px 0 4px}
 #qrFull{display:flex;justify-content:center;margin:12px 0;width:100%}
-#qrFull img,#qrFull canvas{width:min(100%,320px);height:auto}
+#qrFull img,#qrFull canvas{width:min(100%,340px);height:auto}
 .qr-hint{font-size:13px;color:var(--muted);margin:8px 0 0}
 /* Bottom tab bar: floating white pill (4 tabs) */
 .tabbar{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(10px + env(safe-area-inset-bottom));
@@ -142,7 +142,7 @@ body{font-family:-apple-system,system-ui,"Segoe UI",Roboto,sans-serif;background
   <div class="pane">
     <section class="qr-card" id="qrPane" aria-label="QR-код документа">
       <p class="qr-title" id="qrValidTitle">QR-код дійсний до —</p>
-      <div id="qrFull"><img src="./qr-fallback.png" alt="QR-код документа" width="320" height="320"></div>
+      <div id="qrFull"><img src="./qr-fallback.png" alt="QR-код документа" width="340" height="340"></div>
     </section>
   </div>
   </div>
