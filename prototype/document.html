@@ -120,7 +120,7 @@ body{font-family:-apple-system,system-ui,"Segoe UI",Roboto,sans-serif;background
           <svg viewBox="0 0 24 24" fill="#6E6C5C" aria-hidden="true"><path d="M12 12a5 5 0 1 0-5-5 5 5 0 0 0 5 5Zm0 2c-4 0-8 2-8 5v3h16v-3c0-3-4-5-8-5Z"/></svg>
         </span>
         <img id="photoImg" alt="Фото документа" style="display:none" />
-        <span class="badge">＋</span>
+        <span class="badge" id="photoBadge">＋</span>
         <input type="file" id="photoInput" accept="image/*" hidden />
       </div>
       <div class="fields">
@@ -222,11 +222,17 @@ body{font-family:-apple-system,system-ui,"Segoe UI",Roboto,sans-serif;background
     // Photo (stored only on this device).
     const photoImg = document.getElementById("photoImg");
     const photoPlaceholder = document.getElementById("photoPlaceholder");
+    const photoBadge = document.getElementById("photoBadge");
     function renderPhoto() {
       if (person.photo) {
         photoImg.src = person.photo;
         photoImg.style.display = "block";
         photoPlaceholder.style.display = "none";
+        photoBadge.style.display = "none";
+      } else {
+        photoImg.style.display = "none";
+        photoPlaceholder.style.display = "";
+        photoBadge.style.display = "";
       }
     }
     renderPhoto();
