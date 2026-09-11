@@ -65,7 +65,7 @@ body{font-family:-apple-system,system-ui,"Segoe UI",Roboto,sans-serif;background
   flex-direction:column;align-items:center;padding:28px 20px;cursor:pointer}
 .qr-title{font-size:15px;font-weight:600;text-align:center;margin:24px 0 4px}
 #qrFull{display:flex;justify-content:center;margin:12px 0;width:100%}
-#qrFull img,#qrFull canvas{width:min(100%,280px) !important;height:auto !important}
+#qrFull canvas{width:min(100%,280px);height:auto}
 .qr-hint{font-size:13px;color:var(--muted);margin:8px 0 0}
 /* Bottom tab bar: floating white pill (4 tabs) */
 .tabbar{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(10px + env(safe-area-inset-bottom));
@@ -268,17 +268,39 @@ body{font-family:-apple-system,system-ui,"Segoe UI",Roboto,sans-serif;background
         return;
       }
       qrBuilt = true;
-      const payload = JSON.stringify({
-        lastName: person.lastName,
-        firstName: person.firstName,
-        patronymic: person.patronymic,
-        dateOfBirth: person.dob
-      });
-      new QRCode(document.getElementById("qrFull"), { text: payload, width: 280, height: 280, correctLevel: QRCode.CorrectLevel.M });
       const valid = new Date();
       valid.setFullYear(valid.getFullYear() + 1);
       document.getElementById("qrValidTitle").textContent =
         `QR-код дійсний до ${valid.toLocaleDateString("uk-UA", { day: "numeric", month: "long", year: "numeric" })}`;
+      const box = document.getElementById("qrFull");
+      try {
+        const payload = JSON.stringify({
+          lastName: person.lastName,
+          firstName: person.firstName,
+          patronymic: person.patronymic,
+          dateOfBirth: person.dob
+        });
+        const scratch = document.createElement("div");
+        new QRCode(scratch, { text: payload, width: 280, height: 280, correctLevel: QRCode.CorrectLevel.M });
+        const src = scratch.querySelector("canvas");
+        box.textContent = "";
+        if (src && src.width > 0) {
+          const size = 560;
+          const out = document.createElement("canvas");
+          out.width = size;
+          out.height = size;
+          const ctx = out.getContext("2d");
+          ctx.imageSmoothingEnabled = false;
+          ctx.fillStyle = "#ffffff";
+          ctx.fillRect(0, 0, size, size);
+          ctx.drawImage(src, 0, 0, size, size);
+          box.appendChild(out);
+        } else {
+          box.textContent = "Не вдалося згенерувати QR-код";
+        }
+      } catch (error) {
+        box.textContent = "Не вдалося згенерувати QR-код";
+      }
     }
     function showQR() {
       buildQR();
