@@ -5,8 +5,12 @@
 <title>Резерв ID — Отсрочка+</title>
 <link rel="manifest" href="./manifest.webmanifest" />
 <meta name="theme-color" content="#D8D4C6" />
+<meta name="mobile-web-app-capable" content="yes" />
 <meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="default" />
+<meta name="apple-mobile-web-app-title" content="Отсрочка+" />
 <link rel="apple-touch-icon" href="./icons/apple-touch-icon.png" />
+<link rel="icon" type="image/png" sizes="192x192" href="./icons/icon-192.png" />
 <style>
 :root{
   --bg:#EAE6D6; --card:#DED9C4; --card-border:#C3BCA2;
@@ -62,11 +66,15 @@ body{font-family:-apple-system,system-ui,"Segoe UI",Roboto,sans-serif;background
 .pane{flex:0 0 100%;min-width:0}
 /* QR screen */
 .qr-card{background:#fff;border-radius:12px;margin:6vh 20px auto;min-height:60vh;display:flex;
-  flex-direction:column;align-items:center;justify-content:center;padding:28px 20px;cursor:pointer}
-.qr-title{font-size:15px;font-weight:600;text-align:center;margin:24px 0 4px}
-#qrFull{display:flex;justify-content:center;margin:12px 0;width:100%}
-#qrFull img,#qrFull canvas{width:min(100%,325px);height:auto}
-.qr-hint{font-size:13px;color:var(--muted);margin:8px 0 0}
+  flex-direction:column;align-items:center;justify-content:flex-start;padding:0 20px 24px;cursor:pointer}
+.qr-title{font-size:16px;font-weight:500;text-align:center;margin:48px 0 24px;line-height:1.4}
+#qrFull{display:flex;justify-content:center;margin:0 0 44px;width:100%}
+#qrFull img,#qrFull canvas{width:min(100%,340px);height:auto}
+/* Warning note at the bottom of the QR side (matches reference) */
+.qr-note{display:flex;align-items:flex-start;gap:14px;background:var(--card);border:1px solid var(--card-border);
+  border-radius:12px;padding:18px 16px;margin-top:auto;width:100%}
+.qr-note svg{flex:none;width:38px;height:38px;margin-top:2px}
+.qr-note p{margin:0;font-size:15px;line-height:1.45;color:var(--ink);text-align:left}
 /* Bottom tab bar: floating white pill (4 tabs) */
 .tabbar{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(10px + env(safe-area-inset-bottom));
   width:min(340px,calc(100vw - 50px));background:var(--nav);border-radius:26px;z-index:30;
@@ -142,7 +150,15 @@ body{font-family:-apple-system,system-ui,"Segoe UI",Roboto,sans-serif;background
   <div class="pane">
     <section class="qr-card" id="qrPane" aria-label="QR-код документа">
       <p class="qr-title" id="qrValidTitle">QR-код дійсний до —</p>
-      <div id="qrFull"><img src="./qr-fallback.png" alt="QR-код документа" width="325" height="325"></div>
+      <div id="qrFull"><img src="./qr-fallback.png" alt="QR-код документа" width="340" height="340"></div>
+      <aside class="qr-note" aria-label="Застереження">
+        <svg viewBox="0 0 40 40" fill="none" stroke="#6F6E5E" stroke-width="1.6" aria-hidden="true">
+          <rect x="3" y="3" width="34" height="34" rx="7"/>
+          <text x="20" y="29" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif"
+                font-size="27" font-style="italic" fill="#6F6E5E" stroke="none">i</text>
+        </svg>
+        <p>Використовуйте QR-код лише за потреби та відповідально ставтеся до його поширення.</p>
+      </aside>
     </section>
   </div>
   </div>
@@ -275,8 +291,10 @@ body{font-family:-apple-system,system-ui,"Segoe UI",Roboto,sans-serif;background
       qrBuilt = true;
       const valid = new Date();
       valid.setFullYear(valid.getFullYear() + 1);
+      const MONTHS_GEN = ["січня", "лютого", "березня", "квітня", "травня", "червня",
+                          "липня", "серпня", "вересня", "жовтня", "листопада", "грудня"];
       document.getElementById("qrValidTitle").textContent =
-        `QR-код дійсний до ${valid.toLocaleDateString("uk-UA", { day: "numeric", month: "long", year: "numeric" })}`;
+        `QR-код дійсний до ${valid.getDate()} ${MONTHS_GEN[valid.getMonth()]} ${valid.getFullYear()}`;
       const box = document.getElementById("qrFull");
       try {
         const payload = JSON.stringify({

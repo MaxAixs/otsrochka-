@@ -3,7 +3,7 @@ name: PWA Pages
 on:
   push:
     branches: [main]
-    paths: ["prototype/**"]
+    paths: ["prototype/**", ".github/workflows/pwa.yml"]
   workflow_dispatch:
 
 permissions:
