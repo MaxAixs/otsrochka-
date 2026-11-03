@@ -62,7 +62,7 @@ body{font-family:-apple-system,system-ui,"Segoe UI",Roboto,sans-serif;background
 /* Flip: doc card <-> QR screen (3D card turn on tap / swipe) */
 .stage{perspective:1400px}
 .track{display:grid;transform-style:preserve-3d;transition:transform .32s cubic-bezier(.3,.7,.4,1)}
-.track.qr{transform:rotateY(180deg)}
+/* Rotation is driven inline in JS (cumulative angle, one direction). */
 .pane{grid-area:1/1;min-width:0;display:flex;flex-direction:column;
   backface-visibility:hidden;-webkit-backface-visibility:hidden}
 .pane-qr{transform:rotateY(180deg)}
@@ -328,12 +328,23 @@ body{font-family:-apple-system,system-ui,"Segoe UI",Roboto,sans-serif;background
         // Static fallback image stays visible.
       }
     }
+    // Continuous rotation: always turn the same direction, never backwards.
+    let flipAngle = 0;
+    function flip(toQR) {
+      flipAngle += 180;
+      slideTrack.style.transform = `rotateY(${flipAngle}deg)`;
+      slideTrack.classList.toggle("qr", toQR);
+    }
     function showQR() {
       buildQR();
-      slideTrack.classList.add("qr");
+      if (!slideTrack.classList.contains("qr")) {
+        flip(true);
+      }
     }
     function showDoc() {
-      slideTrack.classList.remove("qr");
+      if (slideTrack.classList.contains("qr")) {
+        flip(false);
+      }
     }
     buildQR();
     document.getElementById("qrBtn").addEventListener("click", (event) => {
