@@ -286,17 +286,20 @@ body{font-family:-apple-system,system-ui,"Segoe UI",Roboto,sans-serif;background
     const slideTrack = document.getElementById("track");
     const stage = slideTrack.parentElement;
     let qrBuilt = false;
-    function buildQR() {
-      if (qrBuilt) {
-        return;
-      }
-      qrBuilt = true;
+    // Validity date is always "today + 1 year", refreshed on every QR show.
+    function updateQRValidTitle() {
       const valid = new Date();
       valid.setFullYear(valid.getFullYear() + 1);
       const MONTHS_GEN = ["січня", "лютого", "березня", "квітня", "травня", "червня",
                           "липня", "серпня", "вересня", "жовтня", "листопада", "грудня"];
       document.getElementById("qrValidTitle").textContent =
         `QR-код дійсний до ${valid.getDate()} ${MONTHS_GEN[valid.getMonth()]} ${valid.getFullYear()}`;
+    }
+    function buildQR() {
+      if (qrBuilt) {
+        return;
+      }
+      qrBuilt = true;
       const box = document.getElementById("qrFull");
       try {
         const payload = JSON.stringify({
@@ -334,6 +337,7 @@ body{font-family:-apple-system,system-ui,"Segoe UI",Roboto,sans-serif;background
     }
     function showQR() {
       buildQR();
+      updateQRValidTitle();
       if (!slideTrack.classList.contains("qr")) {
         flip(true);
       }
@@ -344,6 +348,14 @@ body{font-family:-apple-system,system-ui,"Segoe UI",Roboto,sans-serif;background
       }
     }
     buildQR();
+    updateQRValidTitle();
+    // Refresh validity date when returning to the app (PWA stays alive for days).
+    document.addEventListener("visibilitychange", () => {
+      if (!document.hidden) {
+        updateQRValidTitle();
+      }
+    });
+    window.addEventListener("pageshow", updateQRValidTitle);
     document.getElementById("qrBtn").addEventListener("click", (event) => {
       event.stopPropagation();
       showQR();
