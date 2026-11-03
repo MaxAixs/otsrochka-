@@ -30,7 +30,7 @@ body{font-family:-apple-system,system-ui,"Segoe UI",Roboto,sans-serif;background
 .pill svg{width:20px;height:20px}
 /* ID card */
 .card{background:var(--card);border:1px solid var(--card-border);border-radius:12px;overflow:hidden;
-  margin:6vh 20px auto;min-height:60vh;display:flex;flex-direction:column}
+  margin:6vh 20px 0;min-height:60vh;flex:1;display:flex;flex-direction:column}
 .card-head{display:flex;align-items:center;justify-content:space-between;padding:18px 18px 2px}
 .card-title{font-size:19px;font-weight:500}
 .emblem{width:30px;height:36px;object-fit:contain}
@@ -74,7 +74,7 @@ body{font-family:-apple-system,system-ui,"Segoe UI",Roboto,sans-serif;background
 .track:not(.qr) .pane-qr{visibility:hidden;pointer-events:none}
 .track.qr .pane-doc{visibility:hidden;pointer-events:none}
 /* QR screen */
-.qr-card{background:#fff;border-radius:12px;margin:6vh 20px auto;min-height:60vh;display:flex;
+.qr-card{background:#fff;border-radius:12px;margin:6vh 20px 0;min-height:60vh;flex:1;display:flex;
   flex-direction:column;align-items:center;justify-content:flex-start;padding:0 20px 24px;cursor:pointer}
 .qr-title{font-size:16px;font-weight:500;text-align:center;margin:48px 0 24px;line-height:1.4}
 #qrFull{display:flex;justify-content:center;margin:0 0 44px;width:100%}
