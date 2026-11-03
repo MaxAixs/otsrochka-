@@ -309,7 +309,7 @@ body{font-family:-apple-system,system-ui,"Segoe UI",Roboto,sans-serif;background
           dateOfBirth: person.dob
         });
         const scratch = document.createElement("div");
-        new QRCode(scratch, { text: payload, width: 280, height: 280, correctLevel: QRCode.CorrectLevel.M });
+        new QRCode(scratch, { text: payload, width: 280, height: 280, typeNumber: 12, correctLevel: QRCode.CorrectLevel.M });
         const src = scratch.querySelector("canvas");
         if (src && src.width > 0) {
           const size = 560;
