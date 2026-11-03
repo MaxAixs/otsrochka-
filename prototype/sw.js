@@ -1,5 +1,5 @@
 /* Otsrochka+ PWA service worker: offline-first app shell. */
-const CACHE = "otsrochka-v39";
+const CACHE = "otsrochka-v40";
 const ASSETS = [
   "./",
   "./index.html",
