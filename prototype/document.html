@@ -59,11 +59,16 @@ body{font-family:-apple-system,system-ui,"Segoe UI",Roboto,sans-serif;background
 .plus{flex:none;width:40px;height:40px;border-radius:50%;background:var(--accent);border:none;
   display:flex;align-items:center;justify-content:center;cursor:pointer;transform:translateY(26px);padding:0}
 .plus svg{width:22px;height:22px}
-/* Slider: doc card <-> QR screen */
-.stage{overflow:hidden}
-.track{display:flex;transition:transform .38s ease}
-.track.qr{transform:translateX(-100%)}
-.pane{flex:0 0 100%;min-width:0}
+/* Flip: doc card <-> QR screen (3D card turn on tap / swipe) */
+.stage{perspective:1400px}
+.track{display:grid;transform-style:preserve-3d;transition:transform .6s cubic-bezier(.35,.1,.25,1)}
+.track.qr{transform:rotateY(180deg)}
+.pane{grid-area:1/1;min-width:0;display:flex;flex-direction:column;
+  backface-visibility:hidden;-webkit-backface-visibility:hidden}
+.pane-qr{transform:rotateY(180deg)}
+/* Only the visible side receives taps */
+.track:not(.qr) .pane-qr{pointer-events:none}
+.track.qr .pane-doc{pointer-events:none}
 /* QR screen */
 .qr-card{background:#fff;border-radius:12px;margin:6vh 20px auto;min-height:60vh;display:flex;
   flex-direction:column;align-items:center;justify-content:flex-start;padding:0 20px 24px;cursor:pointer}
@@ -107,7 +112,7 @@ body{font-family:-apple-system,system-ui,"Segoe UI",Roboto,sans-serif;background
 
   <div class="stage">
   <div class="track" id="track">
-  <div class="pane">
+  <div class="pane pane-doc">
   <section class="card" id="docCard" aria-label="Резерв ID">
     <div class="card-head">
       <span class="card-title">Резерв ID</span>
@@ -147,7 +152,7 @@ body{font-family:-apple-system,system-ui,"Segoe UI",Roboto,sans-serif;background
   </section>
   </section>
   </div>
-  <div class="pane">
+  <div class="pane pane-qr">
     <section class="qr-card" id="qrPane" aria-label="QR-код документа">
       <p class="qr-title" id="qrValidTitle">QR-код дійсний до —</p>
       <div id="qrFull"><img src="./qr-fallback.png" alt="QR-код документа" width="340" height="340"></div>
